@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  backend:
+    container_name: veera_claims_backend
+    build: ./Backend
+    ports:
+      - "3051:3051"
+    depends_on:
+      - postgres
+    volumes:
+      - ./Backend/Uploads:/app/uploads
+    environment:
+      - PGUSER=postgres
+      - PGPASSWORD=admin123
+      - PGHOST=postgres
+      - PGPORT=5432
+      - PGDATABASE=claims_portal
+    networks:
+      - veera_claims_net
+
+  frontend:
+    container_name: veera_claims_frontend
+    build: ./Frontend
+    ports:
+      - "8082:80"
+    depends_on:
+      - backend
+    networks:
+      - veera_claims_net
+
+  hr:
+    container_name: veera_claims_hr
+    build: ./HR
+    ports:
+      - "8083:80"
+    depends_on:
+      - backend
+    networks:
+      - veera_claims_net
+
+  postgres:
+    container_name: veera_claims_postgres
+    image: postgres:13
+    ports:
+      - "5451:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: claims_portal
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - veera_claims_net
+
+volumes:
+  postgres_data:
+
+networks:
+  veera_claims_net:
+    driver: bridge
+
