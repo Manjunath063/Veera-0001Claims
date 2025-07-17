@@ -20,7 +20,7 @@ services:
       - veera_claims_net
 
   frontend:
-    container_name: veera_claims_frontend
+    container_name: veera_claims_frontend1
     build: ./Frontend
     ports:
       - "8082:80"
