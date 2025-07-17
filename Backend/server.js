@@ -101,7 +101,7 @@ app.get('/api/claims', async (req, res) => {
 // When retrieving files, construct the URL properly
 claim.attachments = attachments.map(att => ({
   name: att.file_name,
-  url: `http://16.170.231.103:3000/uploads/${encodeURIComponent(att.file_path)}`,
+  url: `http://16.170.231.103:3051/uploads/${encodeURIComponent(att.file_path)}`,
   size: att.file_size
 }));
     }
@@ -130,7 +130,7 @@ app.get('/api/claims/:id', async (req, res) => {
     
     claim.attachments = attachments.map(att => ({
       name: att.file_name,
-      url: `http://16.170.231.103:3000/${att.file_path}`,
+      url: `http://16.170.231.103:3051/${att.file_path}`,
       size: att.file_size
     }));
     
@@ -158,7 +158,7 @@ app.get('/api/claims/employee/:employeeId', async (req, res) => {
       );
       claim.attachments = attachments.map(att => ({
         name: att.file_name,
-        url: `http://16.170.231.103:3000/${att.file_path}`,
+        url: `http://16.170.231.103:3051/${att.file_path}`,
         size: att.file_size
       }));
     }
@@ -226,7 +226,7 @@ app.post('/api/claims', upload.array('attachments'), async (req, res) => {
 
     claim.attachments = attachments.map(att => ({
       name: att.file_name,
-      url: `http://16.170.231.103:3000/${path.basename(att.file_path)}`,
+      url: `http://16.170.231.103:3051/${path.basename(att.file_path)}`,
       size: att.file_size
     }));
 
