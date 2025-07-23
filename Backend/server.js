@@ -95,7 +95,7 @@ async function initializeDatabase() {
 function getFileUrl(filename) {
   const baseUrl = process.env.NODE_ENV === 'production' 
     ? 'https://your-production-domain.com' 
-    : `http://16.170.231.103:${port}`;
+    : `http://16.171.43.96:${port}`;
   return `${baseUrl}/uploads/${encodeURIComponent(filename)}`;
 }
 
@@ -323,7 +323,7 @@ app.use((err, req, res, next) => {
 app.listen(port, async () => {
   try {
     await initializeDatabase();
-    console.log(`Server running on http://16.170.231.103:${port}`);
+    console.log(`Server running on http://16.171.43.96:${port}`);
   } catch (err) {
     console.error('Failed to start server:', err);
     process.exit(1);
